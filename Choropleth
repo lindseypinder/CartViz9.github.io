@@ -1,0 +1,47 @@
+<html>
+<head>
+  <title>Maryland Counties Per Capita Income.js</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+	<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+  	<script src="censustracts.js"></script>
+	<style type="text/css">
+	 	html, body, #map{
+	 		height: 100%;
+	 		padding: 0;
+	 		margin: 0;
+	 	}
+	</style>
+
+</head>
+<body>
+
+	<div id="map"></map>
+
+	<script type="text/javascript">
+	var map = L.map('map').setView([37.8, -96], 4);
+	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: 'OSM'})
+	.addTo(map);
+	function getColor(d) {
+	    return d > 64804 ? '#606B2D' :
+	           d > 56189  ? '#798748' :
+	           d > 44979  ? '#98A867' :
+	           d > 29684  ? '#B5C989' :
+	           d > 29000   ? '#D7F0AF' :
+	                      '#FFEDA0';
+	}
+	function style(feature) {
+	    return {
+	        fillColor: getColor(feature.properties.density),
+	        weight: 2,
+	        opacity: 1,
+	        color: 'white',
+	        dashArray: '3',
+	        fillOpacity: 0.7
+	    };
+	}
+	L.geoJson(MD_Data, {style: style}).addTo(map);
+	</script>
+
+</body>
+</html>
